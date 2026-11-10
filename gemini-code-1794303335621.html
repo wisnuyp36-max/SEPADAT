@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEPADAT - Skrining & Edukasi Pranikah Digital Terintegrasi | UPT Puskesmas Sukamara 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Quiz Score Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        teal: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        @media print {
+            body * { visibility: hidden; }
+            #printable-resume, #printable-resume * { visibility: visible; }
+            #printable-resume { position: absolute; left: 0; top: 0; width: 100%; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- ================= HEADER & NAVIGASI ================= -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-teal-100 shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Branding -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-teal-700 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-teal-200">
+                        <i class="fa-solid fa-heart-pulse text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-extrabold text-xl tracking-tight text-slate-900">SEPADAT</span>
+                            <span class="bg-teal-100 text-teal-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-teal-200">2026</span>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium hidden sm:block">UPT Puskesmas Sukamara • Mareti, A.Md.Keb.</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-1">
+                    <a href="#beranda" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-teal-600 rounded-lg hover:bg-teal-50 transition">Beranda</a>
+                    <a href="#hasil-skrining" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-teal-600 rounded-lg hover:bg-teal-50 transition">Cek Hasil Skrining</a>
+                    <a href="#edukasi-pranikah" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-teal-600 rounded-lg hover:bg-teal-50 transition">Edukasi Digital</a>
+                    <a href="#kuis-evaluasi" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-teal-600 rounded-lg hover:bg-teal-50 transition">Tes Evaluasi</a>
+                    <a href="#faq-section" class="px-3 py-2 text-sm font-medium text-slate-700 hover:text-teal-600 rounded-lg hover:bg-teal-50 transition">FAQ & Konsultasi</a>
+                </nav>
+
+                <!-- Action Direct WA Button -->
+                <div class="hidden sm:flex items-center space-x-3">
+                    <a href="https://wa.me/6285248498484?text=Halo%20Bu%20Reti,%20saya%20ingin%20konsultasi%20layanan%20SEPADAT%20Puskesmas%20Sukamara" target="_blank" class="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-white bg-teal-600 hover:bg-teal-700 rounded-xl shadow-sm transition-all hover:shadow-md gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>WA Direct (Reti)</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-slate-600 hover:text-teal-600 hover:bg-slate-100 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-100 bg-white px-4 pt-2 pb-4 space-y-1">
+            <a href="#beranda" class="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-teal-50 hover:text-teal-600 rounded-md">Beranda</a>
+            <a href="#hasil-skrining" class="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-teal-50 hover:text-teal-600 rounded-md">Cek Hasil Skrining Catin</a>
+            <a href="#edukasi-pranikah" class="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-teal-50 hover:text-teal-600 rounded-md">Modul Edukasi Digital</a>
+            <a href="#kuis-evaluasi" class="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-teal-50 hover:text-teal-600 rounded-md">Tes Evaluasi (Pre/Post Test)</a>
+            <a href="#faq-section" class="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-teal-50 hover:text-teal-600 rounded-md">FAQ & Alur Layanan</a>
+            <a href="https://wa.me/6285248498484?text=Halo%20Bu%20Reti,%20saya%20ingin%20konsultasi%20layanan%20SEPADAT" target="_blank" class="block px-3 py-2 text-base font-semibold text-teal-600 hover:bg-teal-50 rounded-md">
+                <i class="fa-brands fa-whatsapp mr-2"></i> Hubungi Petugas (Reti)
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- ================= HERO SECTION ================= -->
+        <section id="beranda" class="relative overflow-hidden bg-gradient-to-b from-teal-50/70 via-white to-slate-50 pt-10 pb-16 lg:pt-16 lg:pb-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-100/90 border border-teal-200 text-teal-800 text-xs sm:text-sm font-semibold">
+                            <i class="fa-solid fa-hand-holding-medical"></i>
+                            <span>Inovasi Pelayanan Pranikah Terpadu 2026</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                            Skrining & Edukasi Pranikah Digital Terintegrasi <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600">(SEPADAT)</span>
+                        </h1>
+                        <p class="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            Memadukan layanan klinis tatap muka di UPT Puskesmas Sukamara dengan edukasi digital berbasis web, akses hasil pemeriksaan lab yang aman, konsultasi berkelanjutan, serta pencegahan stunting sejak masa prakonsepsi.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
+                            <a href="#hasil-skrining" class="w-full sm:w-auto px-6 py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-xl shadow-lg shadow-teal-200 hover:shadow-xl transition text-center gap-2 flex items-center justify-center">
+                                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                                <span>Cek Hasil Skrining Catin</span>
+                            </a>
+                            <a href="https://wa.me/6285248498484?text=Halo%20Bu%20Reti,%20saya%20butuh%20informasi%20skrining%20pranikah%20SEPADAT" target="_blank" class="w-full sm:w-auto px-6 py-3.5 bg-white hover:bg-slate-50 text-slate-700 font-semibold rounded-xl border border-slate-200 hover:border-slate-300 transition text-center gap-2 flex items-center justify-center shadow-sm">
+                                <i class="fa-brands fa-whatsapp text-teal-600 text-lg"></i>
+                                <span>Konsultasi WA (Reti)</span>
+                            </a>
+                        </div>
+                        <!-- Program Context Badge -->
+                        <div class="pt-4 border-t border-slate-200/80 max-w-lg mx-auto lg:mx-0 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-500 font-medium">
+                            <div><i class="fa-solid fa-hospital text-teal-600 mr-1.5"></i> UPT Puskesmas Sukamara</div>
+                            <div><i class="fa-solid fa-user-gear text-teal-600 mr-1.5"></i> Mareti, A.Md.Keb. (NIP. 19840312 201001 2 004)</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hero Info Card -->
+                    <div class="lg:col-span-5">
+                        <div class="relative mx-auto max-w-md lg:max-w-none">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-3xl blur-lg opacity-30"></div>
+                            <div class="relative bg-white rounded-2xl shadow-xl border border-slate-100 p-6 sm:p-8 space-y-5">
+                                <div class="flex items-center space-x-4 border-b border-slate-100 pb-4">
+                                    <div class="w-12 h-12 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-xl">
+                                        <i class="fa-solid fa-user-doctor"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-900">Narahubung / Layanan Catin</h3>
+                                        <p class="text-xs text-teal-600 font-medium flex items-center gap-1">
+                                            <span class="w-2 h-2 rounded-full bg-teal-500 animate-ping"></span>
+                                            Reti (+62 852-4849-8484)
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="space-y-3 text-xs sm:text-sm text-slate-600">
+                                    <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-xl">
+                                        <i class="fa-solid fa-circle-check text-teal-500 mt-1"></i>
+                                        <p><strong>Akses Hasil Lab Transparan:</strong> Hb, LiLA, IMT, HBsAg, Sifilis, & HIV.</p>
+                                    </div>
+                                    <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-xl">
+                                        <i class="fa-solid fa-circle-check text-teal-500 mt-1"></i>
+                                        <p><strong>Edukasi Komprehensif:</strong> Gizi Prakonsepsi, Anemia, & Stunting 1000 HPK.</p>
+                                    </div>
+                                    <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-xl">
+                                        <i class="fa-solid fa-circle-check text-teal-500 mt-1"></i>
+                                        <p><strong>Evaluasi Pre/Post-Test:</strong> Dilengkapi grafik visual peningkatan skor.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MODUL 1: PENCARIAN & REKAM SKRINING PRANIKAH ================= -->
+        <section id="hasil-skrining" class="py-12 bg-white border-t border-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="text-center max-w-3xl mx-auto space-y-2">
+                    <span class="text-teal-600 text-xs font-bold uppercase tracking-wider">Modul 1 • Rekam Medis & Lab Digital</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Pencarian & Ringkasan Hasil Skrining Pranikah</h2>
+                    <p class="text-slate-600 text-sm sm:text-base">Masukkan NIK atau Nama Calon Pengantin (Catin) untuk mengakses ringkasan pemeriksaan klinis dan laboratorium secara aman.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Form Search & Quick Select -->
+                    <div class="lg:col-span-4 bg-slate-50 p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+                        <h3 class="font-bold text-slate-900 flex items-center gap-2 text-sm">
+                            <i class="fa-solid fa-search text-teal-600"></i>
+                            Cari Data Calon Pengantin
+                        </h3>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">NIK atau Nama Catin</label>
+                                <input type="text" id="search-input" placeholder="Contoh: 6208012345670001 atau Siti" class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                            </div>
+                            <button onclick="performSearch()" class="w-full py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm rounded-xl transition shadow-sm">
+                                Cari Data
+                            </button>
+                        </div>
+
+                        <div class="pt-3 border-t border-slate-200">
+                            <label class="block text-xs font-semibold text-slate-500 mb-2">Simulasi Data Sampel (Klik untuk Pilih):</label>
+                            <div class="space-y-2">
+                                <button onclick="loadSampleCatin(1)" class="w-full text-left p-2.5 rounded-xl bg-white border border-slate-200 hover:border-teal-400 hover:bg-teal-50 transition text-xs flex justify-between items-center">
+                                    <div>
+                                        <p class="font-bold text-slate-800">Siti Aminah</p>
+                                        <p class="text-[10px] text-slate-500">NIK: 6208012345670001</p>
+                                    </div>
+                                    <span class="px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-800 font-semibold">Anemia & KEK</span>
+                                </button>
+
+                                <button onclick="loadSampleCatin(2)" class="w-full text-left p-2.5 rounded-xl bg-white border border-slate-200 hover:border-teal-400 hover:bg-teal-50 transition text-xs flex justify-between items-center">
+                                    <div>
+                                        <p class="font-bold text-slate-800">Rina Marlina</p>
+                                        <p class="text-[10px] text-slate-500">NIK: 6208012345670002</p>
+                                    </div>
+                                    <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800 font-semibold">Normal</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medical Resume Display Card (Printable Section) -->
+                    <div class="lg:col-span-8">
+                        <div id="printable-resume" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                            <!-- Card Header -->
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-teal-600 pb-4 gap-2">
+                                <div>
+                                    <span class="text-[10px] font-bold text-teal-600 uppercase tracking-wider">UPT PUSKESMAS SUKAMARA • SEPADAT 2026</span>
+                                    <h3 class="text-lg font-extrabold text-slate-900" id="res-nama-pasangan">Siti Aminah</h3>
+                                    <p class="text-xs text-slate-500" id="res-tgl-skrining">Status: Terdaftar Skrining Pranikah</p>
+                                </div>
+                                <div class="no-print flex items-center gap-2">
+                                    <button onclick="window.print()" class="px-3.5 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-300 rounded-xl hover:bg-slate-200 gap-1.5 inline-flex items-center">
+                                        <i class="fa-solid fa-print"></i> Cetak Resume Medis
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Catin Bio Profile Grid -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-xl text-xs">
+                                <div>
+                                    <span class="text-slate-400 block">NIK Catin:</span>
+                                    <strong id="res-nik" class="font-mono text-slate-800">6208012345670001</strong>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400 block">Status IMT:</span>
+                                    <strong id="res-imt" class="text-slate-800">18.2 (Kurus)</strong>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400 block">Status Imunisasi Td:</span>
+                                    <strong id="res-tt" class="text-teal-700 font-bold">Td Status Lengkap</strong>
+                                </div>
+                                <div>
+                                    <span class="text-slate-400 block">Tes Kehamilan:</span>
+                                    <strong id="res-teshamil" class="text-slate-800">Negatif</strong>
+                                </div>
+                            </div>
+
+                            <!-- Physical & Lab Parameter Results Table -->
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3">Hasil Pemeriksaan Fisik & Laboratorium Pranikah</h4>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                                        <span class="text-slate-500 block">Kadar Hemoglobin (Hb)</span>
+                                        <p class="text-base font-bold text-slate-900" id="res-hb">10.5 g/dL</p>
+                                        <span class="inline-block text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded" id="res-hb-status">Anemia (<12)</span>
+                                    </div>
+
+                                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                                        <span class="text-slate-500 block">Lingkar Lengan (LiLA)</span>
+                                        <p class="text-base font-bold text-slate-900" id="res-lila">22.5 cm</p>
+                                        <span class="inline-block text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded" id="res-lila-status">Risiko KEK (<23.5)</span>
+                                    </div>
+
+                                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                                        <span class="text-slate-500 block">HBsAg (Hepatitis B)</span>
+                                        <p class="text-base font-bold text-emerald-700" id="res-hbsag">Non-Reaktif</p>
+                                        <span class="inline-block text-[10px] font-semibold text-slate-600 bg-slate-200 px-2 py-0.5 rounded">Laboratorium</span>
+                                    </div>
+
+                                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+                                        <span class="text-slate-500 block">Sifilis & HIV</span>
+                                        <p class="text-base font-bold text-emerald-700" id="res-sifilis-hiv">Non-Reaktif</p>
+                                        <span class="inline-block text-[10px] font-semibold text-slate-600 bg-slate-200 px-2 py-0.5 rounded">Aman & Rahasia</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Non-Stigma Medical Recommendations -->
+                            <div class="p-4 bg-teal-50/80 rounded-xl border border-teal-200 space-y-2 text-xs">
+                                <h4 class="font-bold text-teal-900 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-notes-medical text-teal-600"></i>
+                                    Rekomendasi & Tindak Lanjut Medis Puskesmas:
+                                </h4>
+                                <p class="text-slate-700 leading-relaxed" id="res-rekomendasi">
+                                    Disarankan konsumsi Tablet Tambah Darah (TTD) 1x1 setiap hari, pemenuhan gizi kaya zat besi & asam folat, serta konsultasi tindak lanjut dengan Petugas Gizi UPT Puskesmas Sukamara.
+                                </p>
+                            </div>
+
+                            <!-- Signatures Footer -->
+                            <div class="pt-4 grid grid-cols-2 text-center text-xs text-slate-500">
+                                <div>
+                                    <p>Calon Pengantin</p>
+                                    <div class="h-12"></div>
+                                    <p class="font-bold text-slate-800" id="res-ttd-catin">( Siti Aminah )</p>
+                                </div>
+                                <div>
+                                    <p>Pengembang Karya Kinerja</p>
+                                    <div class="h-12"></div>
+                                    <p class="font-bold text-slate-800">( Mareti, A.Md.Keb. )</p>
+                                    <p class="text-[10px]">NIP. 19840312 201001 2 004</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MODUL 2: PUSAT EDUKASI PRANIKAH DIGITAL (5 SLIDE) ================= -->
+        <section id="edukasi-pranikah" class="py-12 bg-slate-50 border-t border-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="text-center max-w-3xl mx-auto space-y-2">
+                    <span class="text-teal-600 text-xs font-bold uppercase tracking-wider">Modul 2 • Literasi Kesehatan Pranikah</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Modul Edukasi Digital SEPADAT</h2>
+                    <p class="text-slate-600 text-sm sm:text-base">Pelajari 5 topik materi penting persiapan kesehatan reproduksi & gizi prakonsepsi secara mandiri.</p>
+                </div>
+
+                <!-- Slide Tabs Navigation -->
+                <div class="flex justify-center flex-wrap gap-2">
+                    <button onclick="switchEduSlide(1)" id="btn-slide-1" class="px-3.5 py-2 text-xs font-bold rounded-xl bg-teal-600 text-white shadow-sm transition">Slide 1: Kespro & Hak Pranikah</button>
+                    <button onclick="switchEduSlide(2)" id="btn-slide-2" class="px-3.5 py-2 text-xs font-bold rounded-xl bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">Slide 2: Gizi & Anemia</button>
+                    <button onclick="switchEduSlide(3)" id="btn-slide-3" class="px-3.5 py-2 text-xs font-bold rounded-xl bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">Slide 3: Cegah Stunting & 1000 HPK</button>
+                    <button onclick="switchEduSlide(4)" id="btn-slide-4" class="px-3.5 py-2 text-xs font-bold rounded-xl bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">Slide 4: PHBS & Mental Health</button>
+                    <button onclick="switchEduSlide(5)" id="btn-slide-5" class="px-3.5 py-2 text-xs font-bold rounded-xl bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition">Slide 5: Skrining IMS (HBsAg, Sifilis, HIV)</button>
+                </div>
+
+                <!-- Slide Content Cards Container -->
+                <div class="max-w-4xl mx-auto">
+                    <!-- Slide 1 -->
+                    <div id="slide-1" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex items-center space-x-3 text-teal-600 border-b pb-3">
+                            <i class="fa-solid fa-venus-mars text-2xl"></i>
+                            <h3 class="text-lg font-bold text-slate-900">Slide 1: Kesehatan Reproduksi dan Hak Pranikah</h3>
+                        </div>
+                        <p class="text-xs text-slate-700 leading-relaxed">Kesehatan reproduksi pranikah mencakup kesiapan fisik, mental, dan sosial pasangan sebelum menikah. Persiapan ini membantu pasangan merencanakan kehamilan yang sehat, mencegah penyakit, serta mengurangi risiko komplikasi selama kehamilan dan persalinan.</p>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-2">
+                            <p><strong>1. Usia ideal kehamilan:</strong> Perempuan dianjurkan merencanakan kehamilan pada usia minimal 20 tahun. Kehamilan pada usia terlalu muda meningkatkan risiko anemia, kelahiran prematur, dan komplikasi kehamilan.</p>
+                            <p><strong>2. Tujuan edukasi kesehatan reproduksi:</strong> Mempersiapkan pasangan agar memahami fungsi reproduksi, merencanakan kehamilan, dan menjaga kesehatan sebelum maupun sesudah menikah.</p>
+                            <p><strong>3. Hak kesehatan reproduksi:</strong> Setiap pasangan berhak memperoleh informasi dan pelayanan kesehatan, menentukan rencana kehamilan bersama, serta menjalani hubungan suami istri berdasarkan persetujuan tanpa paksaan.</p>
+                            <p><strong>4. Perawatan organ reproduksi:</strong> Menjaga kebersihan organ reproduksi, menghindari perilaku seksual berisiko, dan melakukan pemeriksaan kesehatan secara berkala.</p>
+                        </div>
+                        <p class="text-xs font-semibold text-teal-800 bg-teal-50 p-2.5 rounded-lg border border-teal-200">📌 Pesan penting: Pernikahan yang sehat dimulai dari pasangan yang memahami dan bertanggung jawab terhadap kesehatan reproduksinya.</p>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div id="slide-2" class="hidden bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex items-center space-x-3 text-teal-600 border-b pb-3">
+                            <i class="fa-solid fa-apple-whole text-2xl"></i>
+                            <h3 class="text-lg font-bold text-slate-900">Slide 2: Gizi Prakonsepsi dan Pencegahan Anemia</h3>
+                        </div>
+                        <p class="text-xs text-slate-700 leading-relaxed">Persiapan gizi sebelum kehamilan sangat penting karena kondisi kesehatan ibu akan memengaruhi pertumbuhan dan perkembangan janin. Pemenuhan zat gizi perlu dilakukan sejak masa prakonsepsi.</p>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-2">
+                            <p><strong>1. Kadar Hemoglobin (Hb):</strong> Kadar Hb normal pada perempuan tidak hamil umumnya minimal 12 g/dL. Kadar di bawah angka tersebut menunjukkan anemia dan memerlukan pemeriksaan serta penanganan sesuai penyebabnya.</p>
+                            <p><strong>2. Lingkar Lengan Atas (LiLA):</strong> LiLA kurang dari 23,5 cm menunjukkan risiko Kurang Energi Kronis (KEK) pada perempuan usia subur.</p>
+                            <p><strong>3. Pencegahan anemia:</strong> Mengonsumsi makanan kaya zat besi, seperti daging, ikan, telur, dan sayuran hijau. Konsumsi Tablet Tambah Darah (TTD) mengikuti anjuran tenaga kesehatan.</p>
+                            <p><strong>4. Asam folat:</strong> Calon ibu dianjurkan mengonsumsi asam folat sebelum kehamilan untuk membantu mencegah cacat tabung saraf pada janin.</p>
+                            <p><strong>5. Gizi seimbang:</strong> Mengonsumsi makanan beragam yang mengandung karbohidrat, protein, lemak sehat, vitamin, dan mineral serta mencukupi kebutuhan air putih.</p>
+                        </div>
+                        <p class="text-xs font-semibold text-teal-800 bg-teal-50 p-2.5 rounded-lg border border-teal-200">📌 Pesan penting: Jangan menunggu hamil untuk memperbaiki gizi. Persiapkan kondisi tubuh sejak sebelum kehamilan.</p>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div id="slide-3" class="hidden bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex items-center space-x-3 text-teal-600 border-b pb-3">
+                            <i class="fa-solid fa-baby-carriage text-2xl"></i>
+                            <h3 class="text-lg font-bold text-slate-900">Slide 3: Pencegahan Stunting Sejak Masa Prakonsepsi</h3>
+                        </div>
+                        <p class="text-xs text-slate-700 leading-relaxed">Stunting merupakan gangguan pertumbuhan dan perkembangan anak akibat kekurangan gizi kronis, infeksi berulang, serta faktor lingkungan dan pengasuhan. Pencegahannya perlu dimulai sejak sebelum kehamilan dan berlanjut selama 1.000 Hari Pertama Kehidupan (HPK).</p>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-2">
+                            <p><strong>1. Masa prakonsepsi:</strong> Memastikan calon ibu memiliki status gizi baik, tidak mengalami anemia atau KEK, dan memperoleh pemeriksaan kesehatan sebelum hamil.</p>
+                            <p><strong>2. Pemeriksaan imunisasi:</strong> Memastikan calon pengantin perempuan memiliki status imunisasi tetanus yang lengkap sesuai ketentuan. Imunisasi Td diberikan berdasarkan riwayat imunisasi untuk mencegah tetanus pada ibu dan bayi baru lahir.</p>
+                            <p><strong>3. Menghindari asap rokok:</strong> Menghindari rokok aktif maupun pasif karena paparan asap rokok dapat mengganggu pertumbuhan janin dan meningkatkan risiko berat badan lahir rendah.</p>
+                            <p><strong>4. Pemeriksaan kesehatan:</strong> Melakukan pemeriksaan penyakit infeksi, menjaga pola makan, dan mengikuti konsultasi kesehatan sebelum merencanakan kehamilan.</p>
+                            <p><strong>5. Perawatan selama 1.000 HPK:</strong> Memenuhi gizi ibu selama kehamilan, memberikan ASI eksklusif selama enam bulan, dan melanjutkan pemberian MPASI bergizi sejak usia enam bulan.</p>
+                        </div>
+                        <p class="text-xs font-semibold text-teal-800 bg-teal-50 p-2.5 rounded-lg border border-teal-200">📌 Pesan penting: Pencegahan stunting bukan hanya tanggung jawab ibu, tetapi juga tanggung jawab ayah, keluarga, dan lingkungan.</p>
+                    </div>
+
+                    <!-- Slide 4 -->
+                    <div id="slide-4" class="hidden bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex items-center space-x-3 text-teal-600 border-b pb-3">
+                            <i class="fa-solid fa-heart-pulse text-2xl"></i>
+                            <h3 class="text-lg font-bold text-slate-900">Slide 4: PHBS dan Kesehatan Mental Pasangan</h3>
+                        </div>
+                        <p class="text-xs text-slate-700 leading-relaxed">Perilaku Hidup Bersih dan Sehat (PHBS) serta kesehatan mental menjadi dasar penting dalam membangun keluarga yang sehat, harmonis, dan berkualitas.</p>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-2">
+                            <p><strong>1. Penerapan PHBS:</strong> Membiasakan konsumsi makanan bergizi seimbang, mencuci tangan dengan sabun, menjaga kebersihan organ reproduksi, menggunakan air bersih, dan menjaga kebersihan lingkungan.</p>
+                            <p><strong>2. Menghindari perilaku berisiko:</strong> Tidak merokok, menghindari alkohol dan narkoba, serta membatasi kebiasaan yang dapat mengganggu kesehatan.</p>
+                            <p><strong>3. Aktivitas fisik:</strong> Melakukan olahraga secara teratur, misalnya berjalan kaki, bersepeda, atau senam selama 30 menit sehari.</p>
+                            <p><strong>4. Kesehatan mental:</strong> Mengenali dan mengelola stres, mengendalikan emosi, serta membangun komunikasi yang terbuka dan saling menghargai.</p>
+                            <p><strong>5. Kesiapan emosional:</strong> Belajar menyelesaikan konflik melalui diskusi, saling mendengarkan, dan tidak menggunakan kekerasan dalam hubungan.</p>
+                        </div>
+                        <p class="text-xs font-semibold text-teal-800 bg-teal-50 p-2.5 rounded-lg border border-teal-200">📌 Pesan penting: Keluarga yang sehat tidak hanya membutuhkan tubuh yang sehat, tetapi juga pikiran yang sehat dan hubungan yang saling mendukung.</p>
+                    </div>
+
+                    <!-- Slide 5 -->
+                    <div id="slide-5" class="hidden bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                        <div class="flex items-center space-x-3 text-teal-600 border-b pb-3">
+                            <i class="fa-solid fa-shield-virus text-2xl"></i>
+                            <h3 class="text-lg font-bold text-slate-900">Slide 5: Infeksi Menular Seksual (IMS): HBsAg, Sifilis, dan HIV</h3>
+                        </div>
+                        <p class="text-xs text-slate-700 leading-relaxed">Infeksi Menular Seksual (IMS) merupakan penyakit yang dapat menular melalui hubungan seksual berisiko. Pemeriksaan sebelum menikah membantu pasangan mengetahui kondisi kesehatannya dan mencegah penularan kepada pasangan maupun bayi.</p>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-2">
+                            <p><strong>1. Pemeriksaan HBsAg:</strong> Bertujuan mendeteksi infeksi Hepatitis B. Pemeriksaan ini penting karena Hepatitis B dapat menular dari ibu kepada bayi saat persalinan.</p>
+                            <p><strong>2. Pemeriksaan HIV:</strong> Bertujuan mendeteksi infeksi Human Immunodeficiency Virus (HIV) sehingga penderita dapat memperoleh pengobatan dan mencegah penularan.</p>
+                            <p><strong>3. Pemeriksaan Sifilis:</strong> Bertujuan mendeteksi infeksi bakteri Treponema pallidum. Jika tidak ditangani, sifilis dapat menimbulkan komplikasi serius dan menular kepada janin.</p>
+                            <p><strong>4. Prinsip pelayanan kesehatan:</strong> Pemeriksaan dilakukan dengan memperhatikan persetujuan pasien, keamanan, kerahasiaan hasil, dan tanpa diskriminasi.</p>
+                            <p><strong>5. Tindak lanjut hasil pemeriksaan:</strong> Hasil skrining reaktif perlu dikonfirmasi sesuai prosedur medis. Pasangan mendapatkan konseling, pengobatan, dan pendampingan tenaga kesehatan.</p>
+                        </div>
+                        <p class="text-xs font-semibold text-teal-800 bg-teal-50 p-2.5 rounded-lg border border-teal-200">📌 Pesan penting: Deteksi dini melalui tes laboratorium IMS di Puskesmas menjamin kesehatan pasangan dan calon anak.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MODUL 3: EVALUASI LITERASI (PRE & POST TEST) ================= -->
+        <section id="kuis-evaluasi" class="py-12 bg-white border-t border-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="text-center max-w-3xl mx-auto space-y-2">
+                    <span class="text-teal-600 text-xs font-bold uppercase tracking-wider">Modul 3 • Tes Evaluasi Pengetahuan</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Evaluasi Pre-Test & Post-Test SEPADAT</h2>
+                    <p class="text-slate-600 text-sm sm:text-base">Uji tingkat pemahaman Anda sebelum dan sesudah membaca materi edukasi melalui 10 soal interaktif.</p>
+                </div>
+
+                <div class="max-w-3xl mx-auto bg-slate-900 text-white p-6 sm:p-8 rounded-3xl shadow-xl space-y-6">
+                    <!-- Quiz Header & Mode Badge -->
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-pen-to-square text-teal-400 text-xl"></i>
+                            <h3 class="font-bold text-base">Soal Evaluasi Pranikah (10 Soal)</h3>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button id="quiz-btn-pre" onclick="switchQuizMode('PRE')" class="px-3 py-1 rounded-full text-xs font-bold bg-teal-500 text-white">Pre-Test</button>
+                            <button id="quiz-btn-post" onclick="switchQuizMode('POST')" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-400 border border-slate-700">Post-Test</button>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Question Container -->
+                    <div id="quiz-question-box" class="space-y-5">
+                        <!-- Dynamic Question HTML rendered via JS -->
+                    </div>
+
+                    <!-- Quiz Result & Analytics Canvas -->
+                    <div id="quiz-result-box" class="hidden space-y-6 text-center">
+                        <div class="p-4 bg-slate-800/80 rounded-2xl border border-slate-700 space-y-2">
+                            <h4 class="text-lg font-bold text-teal-400">Hasil Evaluasi Pengetahuan SEPADAT</h4>
+                            <p class="text-xs text-slate-300">Berikut adalah visualisasi perbandingan skor Pre-Test & Post-Test Anda:</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
+                                <span class="text-xs text-slate-400 block">Skor Pre-Test</span>
+                                <span id="score-pre-val" class="text-2xl font-bold text-amber-400">0 / 100</span>
+                            </div>
+                            <div class="p-3 bg-slate-800 rounded-xl border border-slate-700">
+                                <span class="text-xs text-slate-400 block">Skor Post-Test</span>
+                                <span id="score-post-val" class="text-2xl font-bold text-teal-400">0 / 100</span>
+                            </div>
+                        </div>
+
+                        <!-- Chart JS Analytics Container -->
+                        <div class="w-full max-w-sm mx-auto h-52">
+                            <canvas id="quizChartCanvas"></canvas>
+                        </div>
+
+                        <div class="flex justify-center gap-3 pt-2">
+                            <button onclick="restartQuiz()" class="px-5 py-2.5 bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs rounded-xl transition">
+                                Ulangi Tes Evaluasi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MODUL 4: FAQ & CHATBOT SEPADAT ================= -->
+        <section id="faq-section" class="py-12 bg-slate-50 border-t border-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="text-center max-w-3xl mx-auto space-y-2">
+                    <span class="text-teal-600 text-xs font-bold uppercase tracking-wider">Modul 4 • Layanan Informasi & Konsultasi</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Pertanyaan Sering Diajukan (FAQ)</h2>
+                    <p class="text-slate-600 text-sm sm:text-base">Informasi lengkap mengenai layanan SEPADAT di UPT Puskesmas Sukamara.</p>
+                </div>
+
+                <div class="max-w-4xl mx-auto space-y-4">
+                    <!-- FAQ 1 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-circle-question text-teal-600"></i>
+                            Apa saja jenis pemeriksaan laboratorium pranikah di Puskesmas Sukamara?
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed pl-6">
+                            Pemeriksaan mencakup pengukuran kadar Hemoglobin (Hb untuk deteksi anemia), Lingkar Lengan Atas (LiLA), Indeks Massa Tubuh (IMT), Tes Kehamilan, Imunisasi Td (Tetanus), serta skrining penyakit menular meliputi HBsAg (Hepatitis B), Sifilis, dan HIV.
+                        </p>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-circle-question text-teal-600"></i>
+                            Bagaimana jika hasil tes laboratorium menunjukkan Anemia atau KEK?
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed pl-6">
+                            Tim Puskesmas Sukamara akan memberikan Tablet Tambah Darah (TTD) 1x1 per hari, panduan konsumsi makanan tinggi protein hewani & zat besi, serta pendampingan nutrisi hingga status gizi catin kembali optimal sebelum hamil.
+                        </p>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+                        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-circle-question text-teal-600"></i>
+                            Bagaimana prinsip kerahasiaan hasil pemeriksaan IMS (HBsAg, Sifilis, HIV)?
+                        </h3>
+                        <p class="text-xs text-slate-600 leading-relaxed pl-6">
+                            Seluruh pemeriksaan dilakukan atas persetujuan pasien, terjamin keamanannya, bersifat rahasia, dan bebas dari stigma atau diskriminasi. Pasangan dengan hasil reaktif akan mendapat rujukan medis dan pengobatan profesional.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= FLOATING CHATBOT & DIRECT WA WIDGET ================= -->
+    <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end space-y-3 no-print">
+        <!-- Interactive Chatbot Box Container -->
+        <div id="chatbot-modal" class="hidden w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col transition-all">
+            <div class="bg-gradient-to-r from-teal-700 to-emerald-600 p-4 text-white flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-robot text-xl"></i>
+                    <div>
+                        <h4 class="font-bold text-sm">Chatbot SEPADAT</h4>
+                        <p class="text-[10px] text-teal-100">UPT Puskesmas Sukamara</p>
+                    </div>
+                </div>
+                <button onclick="toggleChatbotModal()" class="text-white hover:text-slate-200"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div id="chat-conversation" class="p-4 h-64 overflow-y-auto space-y-3 text-xs bg-slate-50">
+                <div class="bg-teal-100 text-teal-900 p-3 rounded-xl max-w-[85%]">
+                    Halo! Saya Chatbot SEPADAT. Ada yang bisa saya bantu terkait skrining atau konsultasi Reti (+62 852-4849-8484)?
+                </div>
+            </div>
+
+            <div class="p-2.5 bg-white border-t border-slate-100 flex flex-wrap gap-1 text-[11px]">
+                <button onclick="sendBotResponse('jadwal')" class="px-2.5 py-1 bg-slate-100 hover:bg-teal-100 rounded-lg text-slate-700">Jadwal Layanan</button>
+                <button onclick="sendBotResponse('syarat')" class="px-2.5 py-1 bg-slate-100 hover:bg-teal-100 rounded-lg text-slate-700">Syarat Tes</button>
+                <button onclick="sendBotResponse('reti')" class="px-2.5 py-1 bg-teal-600 text-white rounded-lg font-semibold">Tanya Bu Reti</button>
+            </div>
+        </div>
+
+        <!-- Floating Trigger Buttons -->
+        <div class="flex items-center space-x-2">
+            <button onclick="toggleChatbotModal()" class="w-12 h-12 rounded-full bg-slate-900 text-teal-400 shadow-xl flex items-center justify-center text-xl hover:scale-105 transition" title="Buka Chatbot FAQ">
+                <i class="fa-solid fa-robot"></i>
+            </button>
+            <a href="https://wa.me/6285248498484?text=Halo%20Bu%20Reti,%20saya%20ingin%20konsultasi%20layanan%20SEPADAT" target="_blank" class="w-14 h-14 rounded-full bg-teal-600 text-white shadow-xl flex items-center justify-center text-2xl hover:bg-teal-700 hover:scale-105 transition" title="Direct WhatsApp Reti">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs space-y-2">
+            <p class="font-bold text-slate-200">SEPADAT (Skrining dan Edukasi Pranikah Digital Terintegrasi) • UPT Puskesmas Sukamara 2026</p>
+            <p>Pengembang Karya Kinerja: Mareti, A.Md.Keb. (NIP. 19840312 201001 2 004) | Dosen Pembimbing: Eti Salafas, S.Si.T., M.Kes. (UNW 2026)</p>
+            <p class="text-slate-500 text-[10px]">&copy; 2026 SEPADAT Sukamara. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        // DUMMY PATIENT DATA
+        const samplePatients = [
+            {
+                nik: "6208012345670001",
+                nama: "Siti Aminah",
+                hb: "10.5 g/dL",
+                hbStatus: "Anemia (<12)",
+                lila: "22.5 cm",
+                lilaStatus: "Risiko KEK (<23.5)",
+                imt: "18.2 (Kurus)",
+                tt: "Td Status Lengkap",
+                teshamil: "Negatif",
+                hbsag: "Non-Reaktif",
+                sifilisHiv: "Non-Reaktif",
+                rekomendasi: "Disarankan konsumsi Tablet Tambah Darah (TTD) 1x1 setiap hari, pemenuhan gizi kaya zat besi & asam folat, serta konsultasi tindak lanjut dengan Petugas Gizi UPT Puskesmas Sukamara."
+            },
+            {
+                nik: "6208012345670002",
+                nama: "Rina Marlina",
+                hb: "12.8 g/dL",
+                hbStatus: "Normal (≥12)",
+                lila: "24.0 cm",
+                lilaStatus: "Normal (≥23.5)",
+                imt: "21.5 (Normal)",
+                tt: "Td Status Lengkap",
+                teshamil: "Negatif",
+                hbsag: "Non-Reaktif",
+                sifilisHiv: "Non-Reaktif",
+                rekomendasi: "Kondisi fisik, gizi & imunisasi dalam batas optimal. Pertahankan pola hidup sehat (PHBS) dan kebiasaan nutrisi prakonsepsi."
+            }
+        ];
+
+        function loadSampleCatin(id) {
+            const data = samplePatients[id - 1];
+            if (!data) return;
+
+            document.getElementById('res-nama-pasangan').innerText = data.nama;
+            document.getElementById('res-nik').innerText = data.nik;
+            document.getElementById('res-hb').innerText = data.hb;
+            document.getElementById('res-hb-status').innerText = data.hbStatus;
+            
+            if (data.hbStatus.includes('Anemia')) {
+                document.getElementById('res-hb-status').className = "inline-block text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded";
+                document.getElementById('res-lila-status').className = "inline-block text-[10px] font-semibold text-amber-700 bg-amber-100 px-2 py-0.5 rounded";
+            } else {
+                document.getElementById('res-hb-status').className = "inline-block text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded";
+                document.getElementById('res-lila-status').className = "inline-block text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded";
+            }
+
+            document.getElementById('res-lila').innerText = data.lila;
+            document.getElementById('res-lila-status').innerText = data.lilaStatus;
+            document.getElementById('res-imt').innerText = data.imt;
+            document.getElementById('res-tt').innerText = data.tt;
+            document.getElementById('res-teshamil').innerText = data.teshamil;
+            document.getElementById('res-hbsag').innerText = data.hbsag;
+            document.getElementById('res-sifilis-hiv').innerText = data.sifilisHiv;
+            document.getElementById('res-rekomendasi').innerText = data.rekomendasi;
+            document.getElementById('res-ttd-catin').innerText = `( ${data.nama} )`;
+        }
+
+        function performSearch() {
+            const query = document.getElementById('search-input').value.trim().toLowerCase();
+            if (!query) {
+                alert("Masukkan NIK atau Nama Calon Pengantin.");
+                return;
+            }
+            const foundIdx = samplePatients.findIndex(x => x.nik.includes(query) || x.nama.toLowerCase().includes(query));
+            if (foundIdx !== -1) {
+                loadSampleCatin(foundIdx + 1);
+            } else {
+                alert("Data Catin tidak ditemukan. Menampilkan sampel 1...");
+                loadSampleCatin(1);
+            }
+        }
+
+        // EDUKASI SLIDE TABS LOGIC (1 to 5)
+        function switchEduSlide(slideNum) {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`slide-${i}`).classList.add('hidden');
+                document.getElementById(`btn-slide-${i}`).className = "px-3.5 py-2 text-xs font-bold rounded-xl bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 transition";
+            }
+            document.getElementById(`slide-${slideNum}`).classList.remove('hidden');
+            document.getElementById(`btn-slide-${slideNum}`).className = "px-3.5 py-2 text-xs font-bold rounded-xl bg-teal-600 text-white shadow-sm transition";
+        }
+
+        // QUIZ PRE-TEST / POST-TEST LOGIC (10 Questions)
+        const quizQuestions = [
+            { q: "1. Berapa usia minimal calon pengantin wanita yang dianjurkan untuk hamil?", options: ["15 Tahun", "17 Tahun", "20 Tahun", "25 Tahun"], answer: 2 },
+            { q: "2. Apa tujuan utama edukasi kesehatan reproduksi pranikah?", options: ["Formalitas saja", "Memahami fungsi reproduksi & merencanakan kehamilan", "Syarat nikah", "Hanya untuk ibu hamil"], answer: 1 },
+            { q: "3. Berapa batas minimal kadar Hemoglobin (Hb) normal wanita tidak hamil?", options: ["8 g/dL", "10 g/dL", "12 g/dL", "15 g/dL"], answer: 2 },
+            { q: "4. Berapa ukuran LiLA kurang dari angka berapa yang menunjukkan risiko KEK?", options: ["20,0 cm", "21,5 cm", "23,5 cm", "25,0 cm"], answer: 2 },
+            { q: "5. Kapan pencegahan stunting paling efektif mulai dilakukan?", options: ["Saat anak usia 5 tahun", "Sejak masa prakonsepsi & 1.000 HPK", "Saat sekolah SD", "Setelah lahir"], answer: 1 },
+            { q: "6. Jenis vaksinasi apakah yang diberikan berdasarkan riwayat imunisasi untuk mencegah tetanus?", options: ["BCG", "Imunisasi Td (Tetanus)", "Polio", "Hepatitis A"], answer: 1 },
+            { q: "7. Berapa durasi aktivitas fisik (olahraga) teratur yang dianjurkan dalam PHBS?", options: ["10 menit sehari", "30 menit sehari", "2 jam sehari", "Tidak perlu"], answer: 1 },
+            { q: "8. Bagaimanakah cara penyelesaian konflik dalam kesiapan emosional pasangan?", options: ["Diskusi & tanpa kekerasan", "Menghindari komunikasi", "Saling menyalahkan", "Mengabaikan masalah"], answer: 0 },
+            { q: "9. Pemeriksaan HBsAg laboratorium bertujuan untuk mendeteksi infeksi...", options: ["TBC", "Hepatitis B", "Diabetes", "Anemia"], answer: 1 },
+            { q: "10. Manakah yang TERMASUK prinsip pelayanan kesehatan pemeriksaan IMS di Puskesmas?", options: ["Persetujuan pasien, keamanan, kerahasiaan & tanpa diskriminasi", "Terbuka untuk umum", "Memaksakan pasien", "Mahal"], answer: 0 }
+        ];
+
+        let quizCurrentIndex = 0;
+        let quizMode = 'PRE';
+        let scorePre = null;
+        let scorePost = null;
+
+        function switchQuizMode(mode) {
+            quizMode = mode;
+            quizCurrentIndex = 0;
+            document.getElementById('quiz-btn-pre').className = mode === 'PRE' ? 'px-3 py-1 rounded-full text-xs font-bold bg-teal-500 text-white' : 'px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-400 border border-slate-700';
+            document.getElementById('quiz-btn-post').className = mode === 'POST' ? 'px-3 py-1 rounded-full text-xs font-bold bg-teal-500 text-white' : 'px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-400 border border-slate-700';
+            document.getElementById('quiz-question-box').classList.remove('hidden');
+            document.getElementById('quiz-result-box').classList.add('hidden');
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const container = document.getElementById('quiz-question-box');
+            if (quizCurrentIndex >= quizQuestions.length) {
+                finishQuizSession();
+                return;
+            }
+
+            const item = quizQuestions[quizCurrentIndex];
+            container.innerHTML = `
+                <div class="space-y-3">
+                    <p class="text-xs text-teal-400 font-semibold">Mode ${quizMode}-TEST &bull; Soal ${quizCurrentIndex + 1} dari 10</p>
+                    <p class="text-sm font-medium text-white">${item.q}</p>
+                    <div class="space-y-2 pt-2">
+                        ${item.options.map((opt, idx) => `
+                            <button onclick="submitQuizAnswer(${idx})" class="w-full text-left px-4 py-2.5 text-xs rounded-xl bg-slate-800 hover:bg-teal-700/60 border border-slate-700 text-slate-200 transition">
+                                ${String.fromCharCode(65+idx)}. ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        let tempCorrectCount = 0;
+        function submitQuizAnswer(selectedIdx) {
+            if (selectedIdx === quizQuestions[quizCurrentIndex].answer) {
+                tempCorrectCount++;
+            }
+            quizCurrentIndex++;
+            renderQuizQuestion();
+        }
+
+        function finishQuizSession() {
+            const calculatedScore = tempCorrectCount * 10;
+            if (quizMode === 'PRE') {
+                scorePre = calculatedScore;
+            } else {
+                scorePost = calculatedScore;
+            }
+            tempCorrectCount = 0;
+
+            document.getElementById('quiz-question-box').classList.add('hidden');
+            document.getElementById('quiz-result-box').classList.remove('hidden');
+            document.getElementById('score-pre-val').innerText = scorePre !== null ? `${scorePre} / 100` : `- / 100`;
+            document.getElementById('score-post-val').innerText = scorePost !== null ? `${scorePost} / 100` : `- / 100`;
+
+            renderQuizAnalyticsChart();
+        }
+
+        function restartQuiz() {
+            tempCorrectCount = 0;
+            quizCurrentIndex = 0;
+            document.getElementById('quiz-question-box').classList.remove('hidden');
+            document.getElementById('quiz-result-box').classList.add('hidden');
+            renderQuizQuestion();
+        }
+
+        let chartInstance = null;
+        function renderQuizAnalyticsChart() {
+            const ctx = document.getElementById('quizChartCanvas').getContext('2d');
+            if (chartInstance) chartInstance.destroy();
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pre-Test', 'Post-Test'],
+                    datasets: [{
+                        label: 'Skor Pengetahuan',
+                        data: [scorePre || 0, scorePost || 0],
+                        backgroundColor: ['#f59e0b', '#14b8a6'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, max: 100 } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // CHATBOT LOGIC
+        function toggleChatbotModal() {
+            document.getElementById('chatbot-modal').classList.toggle('hidden');
+        }
+
+        function sendBotResponse(topic) {
+            const container = document.getElementById('chat-conversation');
+            let answer = "";
+            if (topic === 'jadwal') {
+                answer = "Layanan Skrining Pranikah UPT Puskesmas Sukamara buka setiap hari kerja Senin-Sabtu jam 08.00-12.00 WIB.";
+            } else if (topic === 'syarat') {
+                answer = "Syarat: Membawa FC KTP, Kartu BPJS (jika ada), dan Surat Pengantar dari KUA/Desa.";
+            } else if (topic === 'reti') {
+                answer = "Konsultasi langsung via WhatsApp Reti: <a href='https://wa.me/6285248498484' target='_blank' class='font-bold underline text-teal-700'>+62 852-4849-8484</a>";
+            }
+
+            container.innerHTML += `
+                <div class="bg-white p-2.5 rounded-xl border text-slate-800 text-right max-w-[85%] ml-auto">
+                    ${topic.toUpperCase()}
+                </div>
+                <div class="bg-teal-100 text-teal-900 p-2.5 rounded-xl max-w-[85%]">
+                    ${answer}
+                </div>
+            `;
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // MOBILE MENU TOGGLE
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // INIT ON LOAD
+        window.onload = function() {
+            loadSampleCatin(1);
+            renderQuizQuestion();
+        };
+    </script>
+</body>
+</html>
